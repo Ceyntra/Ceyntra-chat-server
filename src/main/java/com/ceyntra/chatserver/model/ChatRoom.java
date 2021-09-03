@@ -1,10 +1,12 @@
-package com.example.chat.model;
+package com.ceyntra.chatserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Getter
@@ -15,8 +17,14 @@ import javax.persistence.Table;
 @Table(name = "chatroom")
 public class ChatRoom {
     @Id
-    private int id;
-    private String chatId;
-    private String senderId;
-    private String recipientId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int chatRoomId;
+    private int senderId;
+    private int recipientId;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chatRoom",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<ChatMessage> chatMessageSet = new HashSet<>();
+
+
 }
