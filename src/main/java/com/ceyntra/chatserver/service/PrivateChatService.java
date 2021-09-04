@@ -4,9 +4,13 @@ import com.ceyntra.chatserver.model.ChatMessage;
 import com.ceyntra.chatserver.model.ChatRoom;
 import com.ceyntra.chatserver.repository.ChatRoomRepository;
 import com.ceyntra.chatserver.repository.PrivateChatMessageRepository;
+import com.ceyntra.chatserver.repository.UserRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @Service
@@ -17,6 +21,12 @@ public class PrivateChatService {
 
     @Autowired
     private PrivateChatMessageRepository messageRepository;
+
+    @Autowired
+    private UserRepository  userRepository;
+
+    @Autowired
+    private PrivateChatMessageRepository privateChatMessageRepository;
 
 
     public ChatMessage saveMessages(ChatMessage message){
@@ -34,7 +44,10 @@ public class PrivateChatService {
             chatRoom=chatRoomRepository.save(chatRoom);
         }
 
-        //Complete the Chat MessageModel
+        //Add timeStamp
+        message.setTimestamp(new Date());
+
+        //Complete the Chat MessageModel   {'id': 0,'senderId': chatMessage.senderID,'recipientId': 603,,'content': chatMessage.content,'timestamp':''}
         message.setChatRoom(chatRoom);
 
         ChatMessage msg=messageRepository.save(message);
@@ -51,12 +64,21 @@ public class PrivateChatService {
     }
 
     public ChatRoom getChatRoomByIds(ChatMessage message){
-
         return chatRoomRepository.getById(1);
 
     }
 
 
+    public ChatRoom getChatRoomMessages(int senderId, int recipientId) {
+        return chatRoomRepository.getChatRoomByUsers(senderId,recipientId);
+    }
+
+    public List<ChatMessage> getChatMessagesByUserIds(int senderId, int recipientId){
+
+      // return privateChatMessageRepository.findChatMessagesBySenderIdAndRecipientId(senderId,recipientId);
+
+        return privateChatMessageRepository.getChatMessagesByUsers(senderId, recipientId);
+    }
 
 
 }

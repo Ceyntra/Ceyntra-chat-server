@@ -19,4 +19,6 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom,Integer> {
     String getChatIdBySenderIdAndRecipientId(String senderId,String recipientId);
 
 
+
+
 }

@@ -1,6 +1,7 @@
 package com.ceyntra.chatserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -22,8 +23,6 @@ public class ChatMessage {
     private int id;
     private int senderId; //
     private int recipientId; //
-    private String senderName;
-    private String recipientName;
     private String content; //
     private Date timestamp; //
 
