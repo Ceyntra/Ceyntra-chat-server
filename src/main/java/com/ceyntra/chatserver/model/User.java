@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -22,6 +22,7 @@ public class User {
     private String telephone;
     private int userType;
     private String hashedPassword;
+    private int isLoggedIn;
 
 
 }

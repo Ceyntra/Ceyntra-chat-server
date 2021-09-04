@@ -12,4 +12,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query("select u.userType from User u where u.userId =: userID")
     int getUserTypeByUserId(@Param("userID") int userID);
 
+    @Query("select u.isLoggedIn from User u where u.userId=:userId")
+    int getLoginStatusByUserId(@Param("userId") int userId);
+
 }

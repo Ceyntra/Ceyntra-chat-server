@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
 @Repository
 public interface ChatRoomRepository extends JpaRepository<ChatRoom,Integer> {
 
@@ -17,6 +20,9 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom,Integer> {
 
 
     String getChatIdBySenderIdAndRecipientId(String senderId,String recipientId);
+
+    @Query("select c from ChatRoom c where c.senderId=:userId OR c.recipientId =:userId")
+    List<ChatRoom> findChatRoomByUserId(@Param("userId") int userId);
 
 
 

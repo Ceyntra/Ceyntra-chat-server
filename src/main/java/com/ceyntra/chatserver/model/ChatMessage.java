@@ -1,7 +1,7 @@
 package com.ceyntra.chatserver.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -9,11 +9,12 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "chatMessage")
 public class ChatMessage {
@@ -26,8 +27,9 @@ public class ChatMessage {
     private String content; //
     private Date timestamp; //
 
-    @ManyToOne
     @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "chatRoomId")
     private ChatRoom chatRoom;
 
 

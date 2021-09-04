@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

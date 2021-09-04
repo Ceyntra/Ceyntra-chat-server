@@ -1,6 +1,7 @@
 package com.ceyntra.chatserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 
@@ -8,7 +9,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,9 +22,10 @@ public class ChatRoom {
     private int senderId;
     private int recipientId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chatRoom",fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<ChatMessage> chatMessageSet = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chatRoom",targetEntity = ChatMessage.class,fetch = FetchType.LAZY)
+    private Set<ChatMessage> chatMessageSet = new HashSet<ChatMessage>();
+
 
 
 }
